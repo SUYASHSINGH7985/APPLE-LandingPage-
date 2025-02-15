@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Landing Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">
+            <img src="appleintel.png" alt="Apple Logo" class="logo">
+          </a>
+        </li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to the Future</h1>
+      <p>Experience innovation like never before.</p>
+      <a href="#" class="btn">Explore</a>
+    </div>
+    <div id="container3D"></div> <!-- 3D Model will go here -->
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature">
+      <h2>Revolutionary Design</h2>
+      <p>Sleek, minimal, and futuristic.</p>
+    </div>
+    <div class="feature">
+      <h2>Immersive 3D</h2>
+      <p>Interact with products in real-time.</p>
+    </div>
+    <div class="feature">
+      <h2>Cutting-Edge Technology</h2>
+      <p>Powered by the latest innovations.</p>
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="cta">
+    <h2>Join the Future Today</h2>
+    <p>Be the first to experience our revolutionary products.</p>
+    <a href="#" class="btn">Sign Up Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Futuristic Designs. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#">Twitter</a>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+  <!-- Load Three.js -->
+  <script type="module">
+    import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
+    import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
+    import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
+
+    window.onload = function() {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById("container3D").appendChild(renderer.domElement);
+
+      camera.position.set(0, 1, 5); // Adjusted position to view model
+
+      const loader = new GLTFLoader();
+      let object;
+
+      loader.load(
+        `./models/eye/scene.gltf`,
+        function (gltf) {
+          object = gltf.scene;
+          object.scale.set(25, 25, 25);  // Increase model size
+          object.position.set(0, -2, 0);  // Center the model
+          scene.add(object);
+          console.log("✅ Model loaded successfully!");
+
+          // Hide preloader when model is loaded
+          document.getElementById("preloader").style.display = "none";
+        },
+        function (xhr) {
+          console.log(`⏳ Model ${(xhr.loaded / xhr.total) * 100}% loaded`);
+        },
+        function (error) {
+          console.error("❌ Error loading model:", error);
+          document.getElementById("preloader").style.display = "none"; // Hide preloader even if model fails
+        }
+      );
+
+      // Lighting setup
+      const topLight = new THREE.DirectionalLight(0xffffff, 2);
+      topLight.position.set(10, 10, 10);
+      scene.add(topLight);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+      scene.add(ambientLight);
+
+     // Orbit Controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.rotateSpeed = 0.3;
+controls.zoomSpeed = 0.3;
+controls.panSpeed = 0.3;
+controls.enablePan = false;
+
+// Restrict OrbitControls from capturing scroll/swipe events
+controls.mouseButtons = {
+  LEFT: THREE.MOUSE.ROTATE, // Allow left-click drag to rotate
+  MIDDLE: null,  // Disable middle mouse (zoom)
+  RIGHT: null,   // Disable right-click pan
+};
+
+controls.touches = {
+  ONE: THREE.TOUCH.ROTATE,  // Allow single-finger touch rotation
+  TWO: THREE.TOUCH.DOLLY_PAN // Allow two-finger zoom & pan
+};
+
+// Prevent OrbitControls from hijacking scroll events
+renderer.domElement.addEventListener("wheel", (event) => {
+  event.stopPropagation(); // Allow normal scrolling
+}, { passive: true });
+
+// Detect mouseover to enable movement only when hovering over the model
+let isHovering = false;
+renderer.domElement.addEventListener("mouseenter", () => isHovering = true);
+renderer.domElement.addEventListener("mouseleave", () => isHovering = false);
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  if (object) {
+    object.rotation.y += 0.005; // Model keeps rotating
+  }
+
+  if (isHovering) {
+    controls.update(); // Only update controls if hovering over the model
+  }
+
+  renderer.render(scene, camera);
+}
+
+// Handle window resizing
+window.addEventListener("resize", function () {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Hide preloader after 5 seconds (failsafe)
+setTimeout(() => {
+  document.getElementById("preloader").style.display = "none";
+}, 5000);
+
+animate();
+
+    };
+  </script>
+
+</body>
+</html>

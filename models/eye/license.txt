@@ -1,0 +1,11 @@
+Model Information:
+* title:	iphone_14_pro_max
+* source:	https://sketchfab.com/3d-models/iphone-14-pro-max-f8813e7f2a96490a85966729c285e355
+* author:	ossssn (https://sketchfab.com/ossssn)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "iphone_14_pro_max" (https://sketchfab.com/3d-models/iphone-14-pro-max-f8813e7f2a96490a85966729c285e355) by ossssn (https://sketchfab.com/ossssn) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
