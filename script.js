@@ -27,13 +27,16 @@ let object;
 
 loader.load(
   `./models/eye/scene.gltf`,  // Change this if loading a different model
-  `./models/eye/scene.gltf`,  
-function (gltf) {
-object = gltf.scene;
-scene.add(object);
-@@ -38,35 +27,24 @@ loader.load(
-console.error(error);
-}
+  function (gltf) {
+    object = gltf.scene;
+    scene.add(object);
+  },
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+  },
+  function (error) {
+    console.error(error);
+  }
 );
 
 // Make the 3D model move based on mouse position
@@ -41,28 +44,28 @@ let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
 
 document.onmousemove = (e) => {
-mouseX = e.clientX;
-mouseY = e.clientY;
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 };
 
 // Animation Loop
 function animate() {
-requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
   // Rotate the 3D model dynamically
-if (object) {
-object.rotation.y = -3 + (mouseX / window.innerWidth) * 3;
-object.rotation.x = -1.2 + (mouseY * 2.5) / window.innerHeight;
-}
+  if (object) {
+    object.rotation.y = -3 + (mouseX / window.innerWidth) * 3;
+    object.rotation.x = -1.2 + (mouseY * 2.5) / window.innerHeight;
+  }
 
-renderer.render(scene, camera);
+  renderer.render(scene, camera);
 }
 
 // Handle window resizing
 window.addEventListener("resize", function () {
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
 // Start animation
