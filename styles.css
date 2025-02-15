@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
@@ -7,8 +7,6 @@ body {
   background-color: #000;
   overflow-x: hidden;
 }
-
-/* Preloader */
 #preloader {
   position: fixed;
   top: 0;
@@ -21,7 +19,6 @@ body {
   align-items: center;
   z-index: 10000;
 }
-
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #007aff;
@@ -36,7 +33,7 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Header */
+
 header {
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
@@ -55,14 +52,13 @@ header nav ul {
   justify-content: center;
 }
 
-/* Logo */
+
 .logo {
   height: 45px;
   width: auto;
   margin-right:0px;
 }
 
-/* Navigation Links */
 header nav ul li {
   margin: 0 20px;
 }
@@ -74,8 +70,6 @@ header nav ul li a {
   display: flex;
   align-items: center;
 }
-
-/* Hero Section */
 .hero {
   height: 100vh;
   display: flex;
@@ -124,15 +118,12 @@ header nav ul li a {
   height: 100%;
   z-index: 1;
 }
-
-/* Features Section */
 .features {
   display: flex;
   justify-content: space-around;
   padding: 100px 20px;
   background-color: #111;
 }
-
 .feature {
   text-align: center;
   max-width: 300px;
@@ -145,25 +136,19 @@ header nav ul li a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-/* Call-to-Action Section */
 .cta {
   text-align: center;
   padding: 100px 20px;
   background: linear-gradient(135deg, #0072ff, #00c6ff);
 }
-
 .cta h2 {
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
-
 .cta p {
   font-size: 1.2rem;
   margin-bottom: 30px;
 }
-
-/* Footer */
 footer {
   background-color: #000;
   color: #fff;
@@ -182,7 +167,6 @@ footer {
   font-weight: bold;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .features {
     flex-direction: column;
